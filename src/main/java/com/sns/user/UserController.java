@@ -14,4 +14,5 @@ public class UserController {
 		model.addAttribute("view", "user/signUp");
 		return "template/layout";
 	}
+	
 }

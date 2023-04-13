@@ -79,5 +79,41 @@ $(document).ready(function(){
 			
 		});
 	});
+	
+	// 회원가입
+	$('#signUpForm').on('submit', function(e){
+		e.preventDefault();
+		
+		//validation
+		let loginId = $('#loginId').val().trim();
+		let password = $('#password').val();
+		let confirmPassword = $('#confirmPassword').val();
+		let name = $('#name').val().trim();
+		let email = $('#email').val().trim();
+		
+		if(password != confirmPassword){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+		
+		if($('#idCheckOk').hasClass("d-none")){
+			alert("아이디 중복 확인을 다시 해주세요");
+			return false;
+		}
+		
+		// ajax
+		let url = $(this).attr("action");
+		console.log(url);
+		let params = $(this).serialize();
+		console.log(params);
+		
+		$.post(url, params)	//request
+		.done(function(data){
+			if(data.code == 1){
+				alert("가입을 환영합니다! 로그인을 해주세요.");
+				location.href=""
+			}
+		});
+	});
 });
 </script>
