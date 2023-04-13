@@ -5,7 +5,7 @@
 		<h1 class="m-4 font-weight-bold">Sign Up</h1>
 		<form id="signUpForm" method="post" action="/user/sign_up">
 		<div class="d-flex">
-			<div class="form-style">
+			<div class="form-style1">
 				<input type="text" id="loginId" name="loginId" autocomplete="off" required>
 				<label for="loginId"><span>아이디</span></label>
 			</div>
@@ -18,21 +18,21 @@
 				<div id="idCheckDuplicated" class="small text-danger d-none">이미 사용중인 ID입니다.</div>
 				<div id="idCheckOk" class="small text-success d-none">사용 가능한 ID 입니다.</div>
 			</div>
-			<div class="form-style">
+			<div class="form-style1">
 				<input type="password" id="password" name="password" autocomplete="off" required>
 				<label for="password"><span>Password</span></label>
 			</div>
-			<div class="form-style">
+			<div class="form-style1">
 				<input type="password" id="confirmPassword" name="confirmPassword" autocomplete="off" required>
 				<label for="confirmPassword"><span>Confirm password</span></label>
 			</div>
 			
-			<div class="form-style">
+			<div class="form-style1">
 				<input type="text" id="name" name="name" autocomplete="off" required>
 				<label for="name"><span>Name</span></label>
 			</div>
 			
-			<div class="form-style">
+			<div class="form-style1">
 				<input type="text" id="email" name="email" autocomplete="off" required>
 				<label for="email"><span>이메일</span></label>
 			</div>
@@ -111,7 +111,9 @@ $(document).ready(function(){
 		.done(function(data){
 			if(data.code == 1){
 				alert("가입을 환영합니다! 로그인을 해주세요.");
-				location.href=""
+				location.href="/user/sign_in_view";
+			} else{
+				alert(data.errorMessage);
 			}
 		});
 	});

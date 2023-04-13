@@ -2,32 +2,51 @@
 a{color:#ffffff}
 a:hover{text-decoration:none;color:#000000;}
 
-header {height:80px; background-color:#ededed;}
+header {height:80px;background-color:#5CD1E5;}
 .sign-up-box {width:650px;text-align:center; margin-top:20px; box-shadow:5px 5px 5px 5px #BDC0C0;}
 .hidden-box{margin-right:170px;}
 
 .shadow-box {width:550px; background-color:#ebebeb; margin-top:20px; box-shadow:5px 5px 5px 5px #BDC0C0;}
-.login-box {width:400px;}
+.login-box {width:400px;text-align:center;margin-top:50px;}
 
 .contents-box {width:650px;}
 #writeTextArea {height:100px;}
 #loginIdCheckBtn{height:35px;margin-top:27px;}
-
+.login-margin{margin-top:50px;}
+.title-margin{margin-bottom:50px;}
 
 /*sign_up_form_style*/
-.form-style{margin-top:20px;margin-left:150px;}
+.form-style1{margin-top:20px;margin-left:150px;}
 
 /* form과 fieldset은 선택자로 사용하지 않는다. */
 
 /* 스타일 */
-.form-style { position:relative; width:50%; height:50px; } /* 기본세팅 */
-.form-style input { box-sizing:border-box; padding:5px 0 0; width:100%; height:100%; border:0 none; color:#595f63; outline:none; }
-.form-style label { position:absolute; left:0%; bottom:0; width:100%; height:100%; border-bottom:1px solid #000; text-align:left; pointer-events:none; }
-.form-style label:after { content:""; position:absolute; left:0; bottom:-1px; width:0; height:100%; border-bottom:3px solid #5fa8d3; transition:all .3s ease; } /* 파란색 가로줄 */
-.form-style label span { position:absolute; left:0; bottom:5px; transition:all .3s ease; }
-.form-style input:focus + label span, 
-.form-style input:valid + label span { transform:translateY(-150%); font-size:14px; color:#5fa8d3; }  /* input에 글을 입력하고 포커스가 지나간 상태에서 제어하려면 valid 선택자를 써야한다. */
+.form-style1 { position:relative; width:50%; height:50px; } /* 기본세팅 */
+.form-style1 input { box-sizing:border-box; padding:5px 0 0; width:100%; height:100%; border:0 none; color:#595f63; outline:none; }
+.form-style1 label { position:absolute; left:0%; bottom:0; width:100%; height:100%; border-bottom:1px solid #000; text-align:left; pointer-events:none; }
+.form-style1 label:after { content:""; position:absolute; left:0; bottom:-1px; width:0; height:100%; border-bottom:3px solid #5fa8d3; transition:all .3s ease; } /* 파란색 가로줄 */
+.form-style1 label span { position:absolute; left:0; bottom:5px; transition:all .3s ease; }
+.form-style1 input:focus + label span, 
+.form-style1 input:valid + label span { transform:translateY(-150%); font-size:14px; color:#5fa8d3; }  /* input에 글을 입력하고 포커스가 지나간 상태에서 제어하려면 valid 선택자를 써야한다. */
 /* 포커스 될 때 label span(name)이 위로 올라감 */
-.form-style input:focus + label::after,
-.form-style input:valid + label::after { width:100%; transform:translateX(0); } 
+.form-style1 input:focus + label::after,
+.form-style1 input:valid + label::after { width:100%; transform:translateX(0); } 
+/* 포커스 될 때 파란색 가로줄이 생김 */
+
+
+/*sign_in_form_style*/
+
+/* form과 fieldset은 선택자로 사용하지 않는다. */
+
+/* 스타일 */
+.form-style2 { position:relative;height:50px; margin-top:10px;} /* 기본세팅 */
+.form-style2 input { box-sizing:border-box; padding:5px 0 0; width:100%; height:100%; border:0 none; color:#595f63; outline:none; }
+.form-style2 label { position:absolute; left:0%; bottom:0; width:100%; height:100%; border-bottom:1px solid #000; text-align:left; pointer-events:none; }
+.form-style2 label:after { content:""; position:absolute; left:0; bottom:-1px; width:0; height:100%; border-bottom:3px solid #00D8FF; transition:all .3s ease; } /* 파란색 가로줄 */
+.form-style2 label span { position:absolute; left:0; bottom:5px; transition:all .3s ease; }
+.form-style2 input:focus + label span, 
+.form-style2 input:valid + label span { transform:translateY(-150%); font-size:14px; color:#5fa8d3; }  /* input에 글을 입력하고 포커스가 지나간 상태에서 제어하려면 valid 선택자를 써야한다. */
+/* 포커스 될 때 label span(name)이 위로 올라감 */
+.form-style2 input:focus + label::after,
+.form-style2 input:valid + label::after { width:100%; transform:translateX(0); } 
 /* 포커스 될 때 파란색 가로줄이 생김 */
