@@ -63,4 +63,12 @@ public class UserRestController {
 		}
 		return result;
 	}
+	
+	@PostMapping("/sing_in")
+	public Map<String, Object> singIn(
+			@RequestParam("loginId") String loginId){
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 1);
+		return result;
+	}
 }
