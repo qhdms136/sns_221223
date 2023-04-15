@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sns.user.bo.UserBO;
 import com.sns.user.model.User;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/user")
 @RestController
 public class UserRestController {
@@ -64,11 +66,28 @@ public class UserRestController {
 		return result;
 	}
 	
-	@PostMapping("/sing_in")
+	@PostMapping("/sign_in")
 	public Map<String, Object> singIn(
-			@RequestParam("loginId") String loginId){
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			HttpSession session){
+		
+		// 비밀번호 암호화
+		// Bcrypt는 단방향 해시 알고리즘이기 때문에 복호화가 불가능하다.
+		
+		User user = userBO.getUserByLoginIdPassword(loginId, password);
+		boolean check = passwordEncoder.matches(password, user.getPassword());
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 1);
+		if(user != null && check == true) {
+			result.put("code", 1);
+			result.put("result","성공");
+			session.setAttribute("userLoginId", user.getLoginId());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userId", user.getId());
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "존재하지 않는 사용자 입니다.");
+		}
 		return result;
 	}
 }

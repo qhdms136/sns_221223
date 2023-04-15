@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-center">
 	<div class="sign-up-box">
 		<h1 class="m-4 font-weight-bold">Sign Up</h1>
-		<form id="signUpForm" method="post" action="/user/sign_up">
+		<form id="signUpForm" action="/user/sign_up" method="post">
 		<div class="d-flex">
 			<div class="form-style1">
 				<input type="text" id="loginId" name="loginId" autocomplete="off" required>

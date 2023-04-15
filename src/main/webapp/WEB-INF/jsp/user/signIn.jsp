@@ -27,27 +27,45 @@
 
 <script>
 $(document).ready(function(){
-	$('#loginForm').on('submit', function(e){
+	$('#loginForm').submit(function(e) {
 		e.preventDefault(); //서브밋 기능 중단(정확히는 서브밋 하고 브라우저 이동 이벤트 막기)
 		
 		// validation
 		let loginId = $('#loginId').val().trim();
 		let password = $('#password').val();
 		
-		let url = $('#loginForm').attr("action");
+		let url = $(this).attr("action");
 		console.log(url);
-		let params = $('#loginForm').serialize();
+		let params = $(this).serialize();
 		console.log(params);
 		
 		$.post(url, params)	//request
 		.done(function(data){
 			// response
 			if(data.code == 1){
-				location.href="/post/post_list_view";
-			} else{
-				alert(data.erroMessage);
+				location.href="/timeline/timeline_view";
+			} else {
+				alert(data.errorMessage);
 			}
 		});
+		/* $.ajax({
+			type:"POST"
+			, url:url
+			, data:{"loginId":loginId, "password":password}
+			//request
+			,success:function(data){
+				if(data.code == 1){
+					location.href="/timeline/timeline_view";
+				} else{
+					alert(data.erroMesage);
+				}
+			}
+			,error:function(request, status, error){
+				alert(request);
+				alert(status);
+				alert(error);
+			}
+		}); */
 	});
 });
 </script>
