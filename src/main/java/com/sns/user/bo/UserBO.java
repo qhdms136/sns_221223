@@ -20,7 +20,7 @@ public class UserBO {
 		return userMapper.insertUser(loginId, password, name, email);
 	}
 	
-	public User getUserByLoginIdPassword(String loginId, String password) {
-		return userMapper.selectUserByLoginIdPassword(loginId, password);
+	public void updateUserByPassword(String loginId, String password) {
+		userMapper.updateUserByPassword(loginId, password);
 	}
 }

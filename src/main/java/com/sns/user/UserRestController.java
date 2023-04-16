@@ -75,12 +75,14 @@ public class UserRestController {
 		// 비밀번호 암호화
 		// Bcrypt는 단방향 해시 알고리즘이기 때문에 복호화가 불가능하다.
 		
-		User user = userBO.getUserByLoginIdPassword(loginId, password);
+		User user = userBO.getUserByLoginId(loginId);
 		boolean check = passwordEncoder.matches(password, user.getPassword());
 		Map<String, Object> result = new HashMap<>();
 		if(user != null && check == true) {
 			result.put("code", 1);
 			result.put("result","성공");
+			String encodedPassword = passwordEncoder.encode(password);
+			userBO.updateUserByPassword(loginId, encodedPassword);
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName", user.getName());
 			session.setAttribute("userId", user.getId());
