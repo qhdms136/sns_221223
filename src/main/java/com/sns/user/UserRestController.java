@@ -75,21 +75,28 @@ public class UserRestController {
 		// 비밀번호 암호화
 		// Bcrypt는 단방향 해시 알고리즘이기 때문에 복호화가 불가능하다.
 		
-		User user = userBO.getUserByLoginId(loginId);
-		boolean check = passwordEncoder.matches(password, user.getPassword());
 		Map<String, Object> result = new HashMap<>();
-		if(user != null && check == true) {
-			result.put("code", 1);
-			result.put("result","성공");
-			String encodedPassword = passwordEncoder.encode(password);
-			userBO.updateUserByPassword(loginId, encodedPassword);
-			session.setAttribute("userLoginId", user.getLoginId());
-			session.setAttribute("userName", user.getName());
-			session.setAttribute("userId", user.getId());
-		} else {
-			result.put("code", 500);
+		User user = userBO.getUserByLoginId(loginId);
+		
+		if(user == null) {
+			result.put("code", 501);
 			result.put("errorMessage", "존재하지 않는 사용자 입니다.");
-		}
+		} 
+		if(user != null) {
+			boolean	check = passwordEncoder.matches(password, user.getPassword());
+			if(check == true) {
+				result.put("code", 1);
+				result.put("result","성공");
+				String encodedPassword = passwordEncoder.encode(password);
+				userBO.updateUserByPassword(loginId, encodedPassword);
+				session.setAttribute("userLoginId", user.getLoginId());
+				session.setAttribute("userName", user.getName());
+				session.setAttribute("userId", user.getId());
+			} else {
+				result.put("code", 500);
+				result.put("errorMessage", "비밀번호가 일치하지 않습니다.");
+			}
+		} 
 		return result;
 	}
 }

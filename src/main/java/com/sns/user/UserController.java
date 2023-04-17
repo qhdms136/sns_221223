@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserController {
 	
-	@GetMapping("/	sign_up_view")
+	@GetMapping("/sign_up_view")
 	public String signUpView(Model model) {
 		model.addAttribute("view", "user/signUp");
 		return "template/layout";

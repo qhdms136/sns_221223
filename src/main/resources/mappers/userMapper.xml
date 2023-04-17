@@ -37,6 +37,22 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<!-- <select id="selectUserByLoginIdPassword" resultType="com.sns.user.model.User">
+ 		SELECT
+ 			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+ 	</select> -->
+ 	
  	<update id="updateUserByPassword" parameterType="map">
  		UPDATE
  			`user`

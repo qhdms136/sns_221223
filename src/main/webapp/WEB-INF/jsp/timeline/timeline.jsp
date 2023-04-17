@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="d-flex justify-content-center">
 	<div class="contents-box">
 		<%-- 글쓰기 영역: 로그인 된 상태에서만 보여짐 --%>
+		<c:if test="${not empty userId}">
 		<div class="write-box border rounded m-3">
 			<textarea id="writeTextArea" placeholder="내용을 입력해주세요" class="w-100 border-0"></textarea>
 
@@ -21,6 +25,7 @@
 				<button id="writeBtn" class="btn btn-info">게시</button>
 			</div>
 		</div>
+		</c:if>
 		<%--// 글쓰기 영역 끝 --%>
 
 		<%-- 타임라인 영역 --%>
@@ -33,7 +38,7 @@
 
 					<%-- 더보기(내가 쓴 글일 때만 노출) --%>
 					<a href="#" class="more-btn">
-						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+						<img src="/static/img/timeline/more-icon.png" width="30">
 					</a>
 				</div>
 
@@ -88,3 +93,61 @@
 		<%--// 타임라인 영역 끝  --%>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	// 파일 업로드 이미지 클릭 => 숨겨져있는 file 태그를 동작 시킨다.
+	$('#fileUploadBtn').on('click', function(e){
+		e.preventDefault(); // a 태그의 올라가는 현상 방지
+		$('#file').click();	// input file을 클릭한 것과 같은 효과
+	});
+	
+	// 사용자가 이미지를 선택했을 때 유효성 확인 및 업로드 된 파일명 노출
+	$('#file').on('change', function(e){
+		let fileName = e.target.files[0].name;	// sig2.png
+		console.log(fileName);
+		
+		// 확장자 유효성 확인
+		let ext = fileName.split(".").pop().toLowerCase();
+		if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "gif"){
+			alert("이미지 파일만 업로드 할 수 있습니다.");
+			$("#file").val(""); // 파일 태그에 파일 제거
+			$('#fileName').text("");	// 파일 이름 비우기
+			return;
+		}
+		
+		// 유효성 통과한 이미지는 상자에 업로드 된 파일 이름 노출
+		$('#fileName').text(fileName);
+	});
+	
+	// 글쓰기
+	$('#writeBtn').on('click', function(){
+		
+		// validation
+		let writeTextArea = $('#writeTextArea').val().trim();
+		let file = $('#file').val();
+		
+		// 글내용, 이미지, 확장자 체크
+		// alert(file);
+		if(file != ""){
+			let ext = file.split(".").pop().toLowerCase();
+			if($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1){
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#file').val("");	// 파일을 비운다.
+				return;
+			}
+		}
+		
+		
+		// AJAX 전송
+		let formData = new FormData();
+		formData.append("writeTextArea", writeTextArea);
+		formData.append("file", $('#file')[0].files[0]);
+		
+		$.ajax({
+			type:"POST"
+			, url:""
+		});
+	});
+});
+</script>
