@@ -72,17 +72,22 @@
 				<%-- 댓글 목록 --%>
 				<div class="card-comment-list m-2">
 
+					<c:forEach items="${commentList}" var="comment">
 					<%-- 댓글 내용 --%>
 					<div class="card-comment m-1">
-						<span class="font-weight-bold">댓글사용자:</span>
-						<span>댓글내용</span>
-
+						<c:if test="${post.id eq comment.postId}">
+						<span class="font-weight-bold">${comment.userId} : </span>
+						<span>${comment.content}</span>
+						
 						<%-- 댓글 삭제 버튼 --%>
-						<a href="#" class="commentDelBtn">
-							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
-						</a>
+							<c:if test="${not empty comment.content and (userId eq comment.userId)}">
+							<a href="#" class="commentDelBtn">
+								<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
+							</a>
+							</c:if>
+						</c:if>
 					</div>
-
+					</c:forEach>
 					<%-- 댓글 쓰기 --%>
 					<%-- 로그인 상태에서만 나오게 --%>
 					<c:if test="${not empty userId}">
@@ -189,8 +194,34 @@ $(document).ready(function(){
 		alert(comment); */
 		
 		// 2) 댓글 내용 가져오기
-		let comment = $(this).siblings('input').val().trim();
-		alert(comment);
+		let content = $(this).siblings('input').val().trim();
+		//alert(comment);
+		
+		if(content == ''){
+			alert("댓글을 입력해주세요");
+			return;
+		}
+		
+		// ajax
+		$.ajax({
+				type:"POST"
+				,url:"/comment/create"
+				,data:{"postId":postId, "content":content}
+			,success:function(data){
+				if(data.code == 1){
+					location.reload();	// 새로고침
+				} else if(data.code == 500){
+					alert("로그인을 해주세요.");
+					location.href="/user/sign_in_view";
+				}
+			}
+			,error:function(jqXHR, textStatus, errorThrown) {
+				//  jqXHR.status는 http 오류 번호를 반환하며 케이스별 오류 메시지 판정에 사용하면 유용
+				// errorThrown : "Inter Server Error", "Not Found" 등의 HTTP 오류 메시지가 출력
+				var errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
 	});
 });
 </script>
