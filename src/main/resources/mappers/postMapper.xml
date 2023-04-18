@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.sns.post.dao.PostMapper">
- 	<select id="selectPostList" resultType="map">
+ 	<!-- <select id="selectPostList" resultType="map">
  		SELECT
  			*
  		FROM
  			`post`
- 	</select>
+ 	</select> -->
  	<insert id="insertPost" parameterType="map">
 		INSERT INTO `post`
 		(
@@ -26,4 +26,18 @@
 			,NOW()
 		)
 	</insert>
+	
+	<select id="selectPostList" resultType="com.sns.post.model.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		ORDER BY
+			`id` DESC
+	</select>
  </mapper>

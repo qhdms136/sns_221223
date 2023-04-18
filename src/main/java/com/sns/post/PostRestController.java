@@ -28,12 +28,12 @@ public class PostRestController {
 			HttpSession session) {
 		// 세션에서 유저 정보 꺼내오기
 		Integer userId = (Integer)session.getAttribute("userId");
-		String userloginId = (String)session.getAttribute("userloginId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		Map<String, Object> result = new HashMap<>();
 		
 		// db insert
-		int rowCount = postBO.addPost(userId, userloginId, content, file);
+		int rowCount = postBO.addPost(userId, userLoginId, content, file);
 		
 		if (userId == null) {
 			result.put("code", 500); // 비로그인 상태

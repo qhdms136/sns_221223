@@ -29,22 +29,25 @@
 		<%--// 글쓰기 영역 끝 --%>
 
 		<%-- 타임라인 영역 --%>
+		<c:forEach items="${postList}" var="post">
 		<div class="timeline-box my-5">
 			<%-- 카드1 --%>
 			<div class="card border rounded mt-3">
 				<%-- 글쓴이, 더보기(삭제) --%>
 				<div class="p-2 d-flex justify-content-between">
-					<span class="font-weight-bold">사용자</span>
+					<span class="font-weight-bold">${post.userId}</span>
 
 					<%-- 더보기(내가 쓴 글일 때만 노출) --%>
+					<c:if test="${userId eq post.userId}">
 					<a href="#" class="more-btn">
 						<img src="/static/img/timeline/more-icon.png" width="30">
 					</a>
+					</c:if>
 				</div>
 
 				<%-- 카드 이미지 --%>
 				<div class="card-img">
-					<img src="https://cdn.pixabay.com/photo/2023/04/03/09/27/flowers-7896390_960_720.jpg" class="w-100" alt="본문 이미지">
+					<img src="${post.imagePath}" class="w-100" alt="본문 이미지">
 				</div>
 
 				<%-- 좋아요 --%>
@@ -57,8 +60,8 @@
 
 				<%-- 글 --%>
 				<div class="card-post m-3">
-					<span class="font-weight-bold">사용자</span>
-					<span>내용</span>
+					<span class="font-weight-bold">${post.userId}</span>
+					<span>${post.content}</span>
 				</div>
 
 				<%-- 댓글 --%>
@@ -81,15 +84,19 @@
 					</div>
 
 					<%-- 댓글 쓰기 --%>
+					<%-- 로그인 상태에서만 나오게 --%>
+					<c:if test="${not empty userId}">
 					<div class="comment-write d-flex border-top mt-2">
-						<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글 달기"/> 
-						<button type="button" class="comment-btn btn btn-light">게시</button>
+						<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글 달기"/>
+						<button type="button" class="comment-btn btn btn-light" data-post-id="${post.id}">게시</button>
 					</div>
+					</c:if>
 				</div>
 				<%--// 댓글 목록 끝 --%>
 			</div>
 			<%--// 카드1 끝 --%>
 		</div>
+		</c:forEach>
 		<%--// 타임라인 영역 끝  --%>
 	</div>
 </div>
@@ -170,6 +177,20 @@ $(document).ready(function(){
 				alert("글 저장에 실패했습니다. 관리자에게 문의해주세요.");
 			}
 		});  // --- ajax 끝
+	});
+	
+	// 댓글 게시 버튼 클릭
+	$('.comment-btn').on('click',function(){
+		let postId = $(this).data("post-id");
+		// alert(postId);
+		
+		// 1) 댓글 내용 가져오기
+		/* let comment = $(this).prev().val();
+		alert(comment); */
+		
+		// 2) 댓글 내용 가져오기
+		let comment = $(this).siblings('input').val().trim();
+		alert(comment);
 	});
 });
 </script>

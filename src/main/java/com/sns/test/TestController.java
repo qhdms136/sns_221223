@@ -1,7 +1,6 @@
 package com.sns.test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +38,11 @@ public class TestController {
 		return "test/test";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/test4")
-	public List<Map<String, Object>> test4(){
-		return postMapper.selectPostList();
-	}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/test4") public List<Map<String, Object>> test4(){ return
+	 * postMapper.selectPostList(); }
+	 */
 	
 }
