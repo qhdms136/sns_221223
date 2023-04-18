@@ -9,21 +9,21 @@
  			`post`
  	</select>
  	<insert id="insertPost" parameterType="map">
- 		INSERT INTO `post`
- 		(
+		INSERT INTO `post`
+		(
 			`userId`
-			`content`
-			`imagePath`
-			`createdAt`
-			`updatedAt`
- 		)
- 		VALUES
- 		(
- 			#{userId}
- 			, #{content}
- 			, #{imagePath}
- 			, NOW()
- 			, NOW()
- 		)
- 	</insert>
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			,#{content}
+			,#{imagePath}
+			,NOW()
+			,NOW()
+		)
+	</insert>
  </mapper>

@@ -1,4 +1,4 @@
-package com.sns.timeline;
+package com.sns.post;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,28 +14,36 @@ import com.sns.post.bo.PostBO;
 
 import jakarta.servlet.http.HttpSession;
 
-@RequestMapping("/timeline")
+@RequestMapping("/post")
 @RestController
-public class TimeLineRestController {
+public class PostRestController {
 	
 	@Autowired
 	private PostBO postBO;
 	
 	@PostMapping("/create")
 	public Map<String, Object> create(
-			@RequestParam(value="writeTextArea", required=false) String writeTextArea,
+			@RequestParam("content") String content,
 			@RequestParam("file") MultipartFile file,
 			HttpSession session) {
 		// 세션에서 유저 정보 꺼내오기
-		int userId = (int)session.getAttribute("userId");
-		String userloginId = (String)session.getAttribute("userId");
-		
-		// db insert
-		int rowCount = postBO.addPost(userId, userloginId, writeTextArea, file);
+		Integer userId = (Integer)session.getAttribute("userId");
+		String userloginId = (String)session.getAttribute("userloginId");
 		
 		Map<String, Object> result = new HashMap<>();
+		
+		// db insert
+		int rowCount = postBO.addPost(userId, userloginId, content, file);
+		
+		if (userId == null) {
+			result.put("code", 500); // 비로그인 상태
+			result.put("result", "error");
+			result.put("errorMessage", "로그인을 해주세요.");
+			return result;
+		}
 		if(rowCount > 0) {
 			result.put("code", 1);
+			result.put("result", "성공");
 		}
 		return result;
 	}
