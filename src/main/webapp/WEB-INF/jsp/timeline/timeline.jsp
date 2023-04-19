@@ -79,7 +79,7 @@
 						<span>${comments.comment.content}</span>
 						
 						<%-- 댓글 삭제 버튼 --%>
-							<c:if test="${not empty comment.content and (userId eq comment.userId)}">
+							<c:if test="${not empty comments.comment.content and (userId eq comments.comment.userId)}">
 							<a href="#" class="commentDelBtn">
 								<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
 							</a>
@@ -92,7 +92,7 @@
 					<c:if test="${not empty userId}">
 					<div class="comment-write d-flex border-top mt-2">
 						<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글 달기"/>
-						<button type="button" class="comment-btn btn btn-light" data-post-id="${comments.comment.postId}">게시</button>
+						<button type="button" class="comment-btn btn btn-light" data-post-id="${card.post.id}">게시</button>
 					</div>
 					</c:if>
 				</div>
