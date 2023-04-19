@@ -28,7 +28,9 @@ public class PostBO {
 		return postMapper.insertPost(userId, content, imagePath);
 	}
 	
-	public List<Post> getPostList(){
-		return postMapper.selectPostList();
+	
+	 public List<Post> getPostList(){ 
+		 return postMapper.selectPostList();
 	}
+	 
 }

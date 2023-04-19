@@ -28,4 +28,8 @@ public class UserBO {
 	public void updateUserByPassword(String loginId, String password) {
 		userMapper.updateUserByPassword(loginId, password);
 	}
+	
+	public User getUserById(int id) {
+		return userMapper.selectUserById(id);
+	}
 }

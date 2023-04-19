@@ -30,6 +30,8 @@
 			, `createdAt`
 			, `updatedAt`
 		FROM
-			`comment`	
+			`comment`
+		WHERE
+			`postId` = #{postId}	
  	</select>
  </mapper>

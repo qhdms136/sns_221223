@@ -29,16 +29,16 @@
 		<%--// 글쓰기 영역 끝 --%>
 
 		<%-- 타임라인 영역 --%>
-		<c:forEach items="${postList}" var="post">
+		<c:forEach items="${cardList}" var="card">
 		<div class="timeline-box my-5">
 			<%-- 카드1 --%>
 			<div class="card border rounded mt-3">
 				<%-- 글쓴이, 더보기(삭제) --%>
 				<div class="p-2 d-flex justify-content-between">
-					<span class="font-weight-bold">${post.userId}</span>
+					<span class="font-weight-bold">${card.user.name}</span>
 
 					<%-- 더보기(내가 쓴 글일 때만 노출) --%>
-					<c:if test="${userId eq post.userId}">
+					<c:if test="${userId eq card.post.userId}">
 					<a href="#" class="more-btn">
 						<img src="/static/img/timeline/more-icon.png" width="30">
 					</a>
@@ -47,7 +47,7 @@
 
 				<%-- 카드 이미지 --%>
 				<div class="card-img">
-					<img src="${post.imagePath}" class="w-100" alt="본문 이미지">
+					<img src="${card.post.imagePath}" class="w-100" alt="본문 이미지">
 				</div>
 
 				<%-- 좋아요 --%>
@@ -60,8 +60,8 @@
 
 				<%-- 글 --%>
 				<div class="card-post m-3">
-					<span class="font-weight-bold">${post.userId}</span>
-					<span>${post.content}</span>
+					<span class="font-weight-bold">${card.user.loginId}</span>
+					<span>${card.post.content}</span>
 				</div>
 
 				<%-- 댓글 --%>
@@ -71,13 +71,12 @@
 
 				<%-- 댓글 목록 --%>
 				<div class="card-comment-list m-2">
-
-					<c:forEach items="${commentList}" var="comment">
+				<c:forEach items="${card.commentList}" var="comments">
 					<%-- 댓글 내용 --%>
 					<div class="card-comment m-1">
-						<c:if test="${post.id eq comment.postId}">
-						<span class="font-weight-bold">${comment.userId} : </span>
-						<span>${comment.content}</span>
+						<c:if test="${card.post.id eq comments.comment.postId}">
+						<span class="font-weight-bold">${comments.comment.userId} : </span>
+						<span>${comments.comment.content}</span>
 						
 						<%-- 댓글 삭제 버튼 --%>
 							<c:if test="${not empty comment.content and (userId eq comment.userId)}">
@@ -87,13 +86,13 @@
 							</c:if>
 						</c:if>
 					</div>
-					</c:forEach>
+				</c:forEach>
 					<%-- 댓글 쓰기 --%>
 					<%-- 로그인 상태에서만 나오게 --%>
 					<c:if test="${not empty userId}">
 					<div class="comment-write d-flex border-top mt-2">
 						<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글 달기"/>
-						<button type="button" class="comment-btn btn btn-light" data-post-id="${post.id}">게시</button>
+						<button type="button" class="comment-btn btn btn-light" data-post-id="${comments.comment.postId}">게시</button>
 					</div>
 					</c:if>
 				</div>
@@ -196,7 +195,8 @@ $(document).ready(function(){
 		// 2) 댓글 내용 가져오기
 		let content = $(this).siblings('input').val().trim();
 		//alert(comment);
-		
+		console.log(content);
+		console.log(postId);
 		if(content == ''){
 			alert("댓글을 입력해주세요");
 			return;

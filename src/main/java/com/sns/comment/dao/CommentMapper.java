@@ -9,10 +9,13 @@ import com.sns.comment.model.Comment;
 
 @Repository
 public interface CommentMapper {
+	
 	public int insertComment(
 			@Param("userId") int userId,
 			@Param("postId") int postId,
 			@Param("content") String content);
 	
-	public List<Comment> selectCommentList();
+	public List<Comment> selectCommentList(int postId);
+	
+	
 }
