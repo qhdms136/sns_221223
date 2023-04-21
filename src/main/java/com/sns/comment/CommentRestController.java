@@ -44,4 +44,8 @@ public class CommentRestController {
 		}
 		return result;
 	}
+	
+	/*
+	 * @RequestMapping("/delete/{postId}") public Map<String, Object>
+	 */
 }

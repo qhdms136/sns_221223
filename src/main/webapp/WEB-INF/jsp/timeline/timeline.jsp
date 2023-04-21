@@ -52,9 +52,18 @@
 
 				<%-- 좋아요 --%>
 				<div class="card-like m-3">
-					<a href="#" class="like-btn" >
+					<%-- 좋아요가 눌려있지 않을 때 (비워진 하트) --%>
+					<c:if test="${card.filledLike eq false}">
+					<a href="#" class="like-btn" data-post-id="${card.post.id}">
+						<img src="/static/img/timeline/heart-icon.png" width="18px" height="18px" alt="filled heart">
+					</a>
+					</c:if>
+					<%-- 좋아요가 눌려졌을 때 (채워진 하트) --%>
+					<c:if test="${card.filledLike}">
+					<a href="#" class="like-btn" data-post-id="${card.post.id}">
 						<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18px" height="18px" alt="filled heart">
 					</a>
+					</c:if>
 					좋아요 10개
 				</div>
 
@@ -75,12 +84,12 @@
 					<%-- 댓글 내용 --%>
 					<div class="card-comment m-1">
 						<c:if test="${card.post.id eq comments.comment.postId}">
-						<span class="font-weight-bold">${comments.comment.userId} : </span>
+						<span class="font-weight-bold">${comments.user.name} : </span>
 						<span>${comments.comment.content}</span>
 						
 						<%-- 댓글 삭제 버튼 --%>
 							<c:if test="${not empty comments.comment.content and (userId eq comments.comment.userId)}">
-							<a href="#" class="commentDelBtn">
+							<a href="#" class="commentDelBtn" data-comment-id="${comments.comment.id}">
 								<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
 							</a>
 							</c:if>
@@ -222,6 +231,47 @@ $(document).ready(function(){
 				alert(errorMsg + ":" + textStatus);
 			}
 		});
+	});
+	
+	// 좋아요 버튼 클릭
+	$('.like-btn').on('click', function(e){
+		e.preventDefault(); // a 태그의 올라가는 현상 방지
+		
+		let postId = $(this).data("post-id");
+		// alert(postId);
+		
+		$.ajax({
+			// request
+			url:"/like/" + postId
+		
+			// response
+			,success:function(data){
+				if(data.code == 1){
+					location.reload();
+				}else if(data.code == 300){
+					// 비로그인
+					alert("로그인을 해주세요.");
+					location.href="/user/sign_in_view";
+				} 
+				else{
+					alert(data.errorMasseage);
+				}
+			}
+			,error:function(jqXHR, textStatus, errorThrown){
+				var errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
+	
+	// 댓글 삭제 버튼
+	$('.commentDelBtn').on('click', function(e){
+		e.preventDefault();	// // // a 태그의 올라가는 현상 방지
+		
+		let commentId = $(this).data("comment-id");
+		alert(commentId);
+		
+		
 	});
 });
 </script>

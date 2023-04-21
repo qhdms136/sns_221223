@@ -18,11 +18,20 @@ public class CardView {
 	
 	// 댓글들
 	private List<CommentView> commentList;
+	
 	// 좋아요 n개
 	
 	// 내가(로그인 된 사람) 좋아요 한지 여부 boolean
+	private boolean filledLike;
 	
-	
+	public boolean isFilledLike() {
+		return filledLike;
+	}
+
+	public void setFilledLike(boolean filledLike) {
+		this.filledLike = filledLike;
+	}
+
 	public Post getPost() {
 		return post;
 	}
