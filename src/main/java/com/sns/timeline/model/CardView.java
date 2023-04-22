@@ -20,7 +20,16 @@ public class CardView {
 	private List<CommentView> commentList;
 	
 	// 좋아요 n개
+	private int likeCount;
 	
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	// 내가(로그인 된 사람) 좋아요 한지 여부 boolean
 	private boolean filledLike;
 	

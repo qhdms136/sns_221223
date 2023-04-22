@@ -34,4 +34,13 @@
  			`userId` = #{userId}
  			AND `postId` = #{postId}
  	</delete>
+ 	
+ 	<select id="selectLikeCount" resultType="int">
+		SELECT
+ 			COUNT(1)
+ 		FROM
+ 			`like` 	
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</select>
  </mapper>

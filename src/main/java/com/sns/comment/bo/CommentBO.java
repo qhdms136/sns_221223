@@ -25,6 +25,10 @@ public class CommentBO {
 		return commentMapper.insertComment(userId, postId, content);
 	}
 	
+	public void deleteComment(int commentId) {
+		commentMapper.deleteComment(commentId);
+	}
+	
 	// input : postId
 	// output : 가공된 댓글 리스트
 	public List<CommentView> generateCommentList(int postId){

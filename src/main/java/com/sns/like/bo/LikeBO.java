@@ -19,5 +19,9 @@ public class LikeBO {
 			likeMapper.insertByPostIduserId(postId, userId);
 		}
 	}
+	
+	public int LikeCount(int postId) {
+		return likeMapper.selectLikeCount(postId);
+	}
 }
 

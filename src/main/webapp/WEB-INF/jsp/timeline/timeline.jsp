@@ -64,7 +64,7 @@
 						<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18px" height="18px" alt="filled heart">
 					</a>
 					</c:if>
-					좋아요 10개
+					좋아요 ${card.likeCount}개
 				</div>
 
 				<%-- 글 --%>
@@ -271,6 +271,24 @@ $(document).ready(function(){
 		let commentId = $(this).data("comment-id");
 		alert(commentId);
 		
+		$.ajax({
+			// request
+			url:"/comment/delete/" + commentId
+			
+			// response
+			,success:function(data){
+				if(data.code == 1){
+					location.reload();
+				} else if (data.code == 300){
+					// 비로그인
+					alert(data.errorMessage);
+					location.href="/user/sign_in_view";
+				}
+			}
+			,error:function(request, status, error){
+				alert("댓글 삭제 중 오류가 발생했습니다.");
+			}
+		});
 		
 	});
 });

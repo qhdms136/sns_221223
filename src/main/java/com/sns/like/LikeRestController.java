@@ -37,10 +37,11 @@ public class LikeRestController {
 		}
 		// BO 호출 => BO안에서 like 여부 체크
 		likeBO.LikeToggle(postId, userId);
-		
+
 		// 응답(토글)
 		result.put("code", 1);
 		result.put("result", "성공");
-		return result;
+		return result;					
 	}
+	
 }

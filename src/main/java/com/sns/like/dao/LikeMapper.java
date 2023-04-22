@@ -16,4 +16,6 @@ public interface LikeMapper {
 	public void deleteByPostIdUserId(
 			@Param("postId") int postId,
 			@Param("userId") int userId);
+
+	public int selectLikeCount(int postId);
 }
