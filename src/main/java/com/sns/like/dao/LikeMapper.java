@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LikeMapper {
-	public int selectLikeByPostIdUserId(
-			@Param("postId") int postId,
-			@Param("userId") int userId);
+	// public int selectLikeByPostIdUserId(
+	// 		@Param("postId") int postId,
+	// 		@Param("userId") int userId);
 	
 	public void insertByPostIduserId(
 			@Param("postId") int postId,
@@ -16,6 +16,10 @@ public interface LikeMapper {
 	public void deleteByPostIdUserId(
 			@Param("postId") int postId,
 			@Param("userId") int userId);
-
-	public int selectLikeCount(int postId);
+		
+	// public int selectLikeCount(int postId);
+	
+	public int selectLikeCountByPostIdOrUserId(
+			@Param("postId") int postId,
+			@Param("userId") Integer userId);
 }
