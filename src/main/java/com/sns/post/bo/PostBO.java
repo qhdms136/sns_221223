@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sns.comment.bo.CommentBO;
 import com.sns.common.FileManagerService;
+import com.sns.like.bo.LikeBO;
 import com.sns.post.dao.PostMapper;
 import com.sns.post.model.Post;
 
@@ -18,6 +20,12 @@ public class PostBO {
 	
 	@Autowired
 	private FileManagerService fileManager;
+	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	public int addPost(int userId, String userLoginId, String content, MultipartFile file) {
 		String imagePath = null;
@@ -33,4 +41,26 @@ public class PostBO {
 		 return postMapper.selectPostList();
 	}
 	 
+	 public Post getPostByPostIdUserId(int postId, int userId) {
+		 return postMapper.selectPostByPostIdUserId(postId, userId);
+	 }
+	 
+	 // 게시물 삭제	
+	 public int deletePostByPostIdUserId(int id, int userId) {
+		 Post post = getPostByPostIdUserId(id, userId);
+		 // db 삭제
+		 // 좋아요, 댓글, 사진 삭제(각각의 BO를 불러서 삭제)
+		 if(post.getImagePath() != null) {
+			 fileManager.deleteFile(post.getImagePath());
+		 }
+		 
+		 // post 좋아요 삭제
+		 likeBO.likeDeteByPostId(id);
+		 
+		 // post 댓글 삭제
+		 commentBO.deleteCommentByPostId(id);
+		 
+		 return postMapper.deletePostByPostIdUserId(id, userId);
+	 }
+		 
 }

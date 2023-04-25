@@ -25,8 +25,12 @@ public class CommentBO {
 		return commentMapper.insertComment(userId, postId, content);
 	}
 	
-	public void deleteComment(int commentId) {
-		commentMapper.deleteComment(commentId);
+	public void deleteComment(int id) {
+		commentMapper.deleteComment(id);
+	}
+	
+	public void deleteCommentByPostId(int postId) {
+		commentMapper.deleteComment(postId);
 	}
 	
 	// input : postId

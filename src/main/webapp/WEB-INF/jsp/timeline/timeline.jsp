@@ -39,7 +39,7 @@
 
 					<%-- 더보기(내가 쓴 글일 때만 노출) --%>
 					<c:if test="${userId eq card.post.userId}">
-					<a href="#" class="more-btn">
+					<a href="#" class="more-btn"  data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
 						<img src="/static/img/timeline/more-icon.png" width="30">
 					</a>
 					</c:if>
@@ -114,6 +114,25 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modal">
+	<!-- modal-dialog-centered modal 창 수직 수평 가운데 정렬 -->
+	<!-- modal-dialog modal-sm >> 작은 modal -->
+  	<div class="modal-dialog modal-dialog-centered modal-dialog modal-sm">
+ 	  	 <div class="modal-content text-center">
+ 	  	 <!-- data-dismiss="modal" 창 닫기 -->
+ 	  	 	<div class="modal-a py-3 border-bottom">
+  				<a href="#" data-dismiss="modal" id="deletePostBtn">삭제하기</a>
+  			</div>
+  			<div class="modal-a py-3">
+  				<a href="#" data-dismiss="modal">취소하기</a>
+  			</div>
+    	</div>
+ 	</div>
+</div>
+
+
+
 <script>
 $(document).ready(function(){
 	// 파일 업로드 이미지 클릭 => 숨겨져있는 file 태그를 동작 시킨다.
@@ -180,7 +199,7 @@ $(document).ready(function(){
 			, success: function(data) {
 				if (data.code == 1) {
 					location.reload();
-				} else if (data.code == 500) { // 비로그인 일 때
+				} else if (data.code == 300) { // 비로그인 일 때
 					location.href = "/user/sign_in_view";
 				} else {
 					alert(data.errorMessage);
@@ -278,7 +297,8 @@ $(document).ready(function(){
 			// response
 			,success:function(data){
 				if(data.code == 1){
-					location.reload();
+					alert("게시물이 삭제되었습니다.");
+					location.reload(true);
 				} else if (data.code == 300){
 					// 비로그인
 					alert(data.errorMessage);
@@ -289,7 +309,44 @@ $(document).ready(function(){
 				alert("댓글 삭제 중 오류가 발생했습니다.");
 			}
 		});
+	});
+	
+	// 글 삭제(... 더보기 버튼 클릭) -- 글 삭제를 위해
+	$('.more-btn').on('click', function(e){
+		e.preventDefault(); // a 태그 위로 올라감 방지
 		
+		let postId = $(this).data('post-id'); // getting
+		// alert(postId);
+		// 모달 태그에(재활용 되는) data-post-id를 심어줌
+		$('#modal').data('post-id', postId);	// setting
+	})
+	
+	// 모달 안에 있는 삭제하기 버튼 클릭 => 진짜 삭제
+	$('#modal #deletePostBtn').on('click', function(e){
+		e.preventDefault();
+		
+	let postId = $('#modal').data('post-id');
+	
+		// a.jax 통신
+		$.ajax({
+			// request
+			url:"/post/delete/" + postId
+			
+			// response
+			,success:function(data){
+				if(data.code == 1){
+					location.reload(true);
+				} else if(code == 300){
+					alert(data.errorMessage);
+					location.href="/user/sign_in_view";
+				} else{
+					alert(data.errorMessage);
+				}
+			}
+			,error:function(request, status, error){
+				alert("게시물 삭제를 실패하였습니다.");
+			}
+		});
 	});
 });
 </script>

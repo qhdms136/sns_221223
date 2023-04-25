@@ -22,4 +22,6 @@ public interface LikeMapper {
 	public int selectLikeCountByPostIdOrUserId(
 			@Param("postId") int postId,
 			@Param("userId") Integer userId);
+	
+	public void likeDeteByPostId(int postId);
 }

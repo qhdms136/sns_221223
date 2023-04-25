@@ -56,4 +56,11 @@
  				AND `userId` = #{userId}
  			</if>
  	</select>
+ 	<delete id="likeDeteByPostId" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`like`
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</delete>
  </mapper>

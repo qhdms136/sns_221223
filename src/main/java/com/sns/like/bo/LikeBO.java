@@ -34,5 +34,9 @@ public class LikeBO {
 	public int LikeCount(int postId) {
 		return likeMapper.selectLikeCountByPostIdOrUserId(postId, null);
 	}
+	
+	public void likeDeteByPostId(int postId) {
+		likeMapper.likeDeteByPostId(postId);
+	}
 }
 
