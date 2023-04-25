@@ -56,11 +56,11 @@
 			AND `userId` = #{userId}
 	</select>
 	<delete id="deletePostByPostIdUserId" parameterType="map">
-		DLETE
+		DELETE
 		FROM
 			`post`
 		WHERE
-			`id` = #{id}
+			`id` = #{postId}
 			AND `userId` = #{userId}
 	</delete>
  </mapper>

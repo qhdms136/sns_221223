@@ -30,7 +30,7 @@ public class CommentBO {
 	}
 	
 	public void deleteCommentByPostId(int postId) {
-		commentMapper.deleteComment(postId);
+		commentMapper.deleteCommentByPostId(postId);
 	}
 	
 	// input : postId

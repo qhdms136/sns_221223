@@ -330,7 +330,9 @@ $(document).ready(function(){
 		// a.jax 통신
 		$.ajax({
 			// request
-			url:"/post/delete/" + postId
+			type:"DELETE"
+			, url:"/post/delete"
+			, data:{"postId":postId}
 			
 			// response
 			,success:function(data){

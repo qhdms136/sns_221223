@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,9 +49,9 @@ public class PostRestController {
 		return result;
 	}
 	
-	@RequestMapping("/delete/{postId}")
+	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
-			@PathVariable int postId,
+			@RequestParam("postId") int postId,
 			HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 		// 세션 정보 꺼내오기
