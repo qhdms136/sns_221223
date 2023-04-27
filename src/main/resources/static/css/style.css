@@ -55,3 +55,8 @@ header {height:80px;background-color:#5CD1E5;}
 /* timeline_style*/
 .comment-input {width:565px;}
 .card{box-shadow:5px 5px 5px 5px #BDC0C0;}
+
+/* userProfile_style */
+.profile-font {font-size:50px;font-weight:500;margin-left:28px;}
+.profile-img{width:200px;height:200px;object-fit:cover;border-radius:50%; object-position:top;}
+.profile-input-box{margin-left:100px;width:300px;}

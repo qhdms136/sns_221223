@@ -18,13 +18,14 @@ import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/comment")
 @RestController
+@Tag(name="CommentRestController", description="댓글 추가와 댓글 삭제 기능")
 public class CommentRestController {
 	
 	@Autowired
 	private CommentBO commentBO;
 	
-	@Tag(name="댓글 추가 컨트롤러", description="댓글 추가를 위해 파라미터 postId, content를 받아온다.")
-	@Operation(summary="댓굴 추가 api", description="댓글 추가 기능")
+	
+	@Operation(summary="댓굴 추가", description="postId, content를 받아 댓글 생성 기능")
 	@PostMapping("/create")
 	public Map<String, Object> commentCreate(
 			@RequestParam("postId") int postId,
@@ -49,7 +50,7 @@ public class CommentRestController {
 		}
 		return result;
 	}
-	@Tag(name="댓글 삭제 컨트롤러", description="댓글 삭제 시 값을 동적으로 받아 삭제한다.(@PathVariable commentId)")
+	@Operation(summary = "댓글 삭제", description = "댓글 삭제 시 값을 동적으로 받아 삭제한다.(@PathVariable int commentId)")
 	@RequestMapping("/delete/{commentId}")
 	public Map<String, Object> commentDelete(
 			@PathVariable int commentId,

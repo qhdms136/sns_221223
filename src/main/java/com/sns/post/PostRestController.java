@@ -13,15 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.post.bo.PostBO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/post")
+@Tag(name="PostRestController", description="게시물 생성과 삭제기능")
 @RestController
 public class PostRestController {
 	
 	@Autowired
 	private PostBO postBO;
 	
+	@Operation(summary = "게시물 생성", description = "content, file, 로그인 되어있는 userId의 값을 받아 게시물을 생성해주는 기능")
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("content") String content,
@@ -49,6 +53,7 @@ public class PostRestController {
 		return result;
 	}
 	
+	@Operation(summary = "게시물 삭제", description = "postId, 로그인 되어있는 userId 값을 조회해서 게시물 삭제기능")
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("postId") int postId,

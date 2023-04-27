@@ -8,6 +8,7 @@ public class User {
 	private String password;
 	private String name;
 	private String email;
+	private String userImagePath;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -40,6 +41,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getUserImagePath() {
+		return userImagePath;
+	}
+	public void setUserImagePath(String userImagePath) {
+		this.userImagePath = userImagePath;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

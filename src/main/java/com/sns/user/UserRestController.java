@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sns.user.bo.UserBO;
 import com.sns.user.model.User;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
+@Tag(name="UserRestController")
 @RestController
 public class UserRestController {
 	
@@ -26,6 +29,7 @@ public class UserRestController {
 	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/is_duplicated_id")
+	@Operation(summary = "아이디 중복 체크", description = "loginId 값을 받아와 아이디 중복 체크 기능")
 	public Map<String, Object> isDuplicatedId(
 			@RequestParam("loginId") String loginId){
 		Map<String, Object> result = new HashMap<>();
@@ -42,6 +46,7 @@ public class UserRestController {
 		return result;
 	}
 	
+	@Operation(summary = "회원가입", description = "loginId, password, name email 값을 받아 저장하고 회원가입하는 기능")
 	@PostMapping("sign_up")
 	public Map<String, Object> signUp(
 			@RequestParam("loginId") String loginId,
@@ -65,7 +70,7 @@ public class UserRestController {
 		}
 		return result;
 	}
-	
+	@Operation(summary = "로그인", description = "loginId, password 값을 받아 체크 후 로그인 기능")
 	@PostMapping("/sign_in")
 	public Map<String, Object> singIn(
 			@RequestParam("loginId") String loginId,

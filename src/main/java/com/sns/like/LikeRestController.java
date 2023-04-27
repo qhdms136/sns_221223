@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.like.bo.LikeBO;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
+@Tag(name="LikeRestController", description="값을 동적으로 받아 토글형식으로 만든다 (@PathVariable int postId)")
 public class LikeRestController {
 	
 	@Autowired

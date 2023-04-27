@@ -34,7 +34,7 @@ public class FileManagerService {
 		// 파일 업로드: byte 단위로 업로드
 		try {
 			byte[] bytes = file.getBytes();
-			Path path = Paths.get(filePath + file.getOriginalFilename()); // 디렉토리명 + originalFileName은 사용자가 올린 파일명
+			Path path = Paths.get(filePath + file.getOriginalFilename(), "UTF-8"); // 디렉토리명 + originalFileName은 사용자가 올린 파일명
 			Files.write(path, bytes); // 파일 업로드
 		} catch (IOException e) {
 			e.printStackTrace();
